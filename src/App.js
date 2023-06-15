@@ -1,5 +1,5 @@
 import "./App.css";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 
 import { useSelector } from "react-redux";
 import {
@@ -21,6 +21,7 @@ import { TopArtists } from "./pages/TopArtists";
 import { TopTracks } from "./pages/TopTracks";
 import { PlayList } from "./pages/PlayList";
 import { SideBar } from "./components/SideBar";
+import { HambugerMenu } from "./react-icons/HambugerMenu";
 
 function ScrollToTop() {
   const { pathname } = useLocation();
@@ -34,6 +35,10 @@ function ScrollToTop() {
 
 function App() {
   //------------------STATES-------------------------------------------------------
+  const [sideBarStatus, setSideBarStatus] = useState(true);
+  const [displayCreatePlaylist, setDisplayCreatePlaylist] =
+    useState(false);
+  const [idOfPlaylist, setIdOfPlaylist] = useState("");
   const profile = useSelector((state) => state.users.spotifyProfileData);
   const topArtist = useSelector(
     (state) => state.users.spotifyTopArtistData
@@ -44,80 +49,108 @@ function App() {
   const localStorageSpotifyToken = localStorage.getItem(
     "spotify_access_token"
   );
+  const playlist = useSelector(
+    (state) => state.users.spotifyTopPlaylistData
+  );
   //------------------Fuctions-----------------------------------------------------
   const dispatch = useDispatch();
-  // useEffect(() => {
-  //   window.location.reload();
-  // }, []);
 
   return (
-    <div>
-      <GlobalStyle />
+    <Router>
+      <div className="parent_main">
+        <GlobalStyle />
 
-      <StyledLogoutButton
-        onClick={() => {
-          logout();
-        }}
-      >
-        logout
-      </StyledLogoutButton>
+        {sideBarStatus === true ? (
+          <SideBar
+            idOfPlaylist={idOfPlaylist}
+            setIdOfPlaylist={setIdOfPlaylist}
+            playlist={playlist}
+            displayCreatePlaylist={displayCreatePlaylist}
+            setDisplayCreatePlaylist={setDisplayCreatePlaylist}
+          ></SideBar>
+        ) : (
+          <span></span>
+        )}
 
-      {!localStorageSpotifyToken ? (
-        <>
-          <Login></Login>{" "}
-          <button
-            onClick={async () => {
-              const setToken = await dispatch(
-                setSpotifyTokens({
-                  payload: localStorageSpotifyToken,
-                  type: "SPOTIFY_TOKENS",
-                })
-              );
-              const results = await dispatch(
-                spotifyClientInfo(localStorageSpotifyToken)
-              );
-              console.log(setToken, "SETTING_SPOTIFY_TOKEN");
-              console.log(results, "SPOTIFT_CLIENT_INFO");
+        <div className="side-outer-child">
+          <div
+            onClick={() => {
+              setSideBarStatus(!sideBarStatus);
+            }}
+            className="side-outer-child-items"
+          >
+            <HambugerMenu />
+          </div>
+        </div>
+
+        <div className="parent_child">
+          <StyledLogoutButton
+            onClick={() => {
+              logout();
             }}
           >
-            test
-          </button>
-        </>
-      ) : (
-        <>
-          {" "}
-          <button
-            onClick={async () => {
-              const setToken = await dispatch(
-                setSpotifyTokens({
-                  payload: localStorageSpotifyToken,
-                  type: "SPOTIFY_TOKENS",
-                })
-              );
+            logout
+          </StyledLogoutButton>
 
-              const results = await dispatch(
-                spotifyClientInfo(localStorageSpotifyToken)
-              );
+          {!localStorageSpotifyToken ? (
+            <>
+              <Login></Login>{" "}
+              <button
+                onClick={async () => {
+                  const setToken = await dispatch(
+                    setSpotifyTokens({
+                      payload: localStorageSpotifyToken,
+                      type: "SPOTIFY_TOKENS",
+                    })
+                  );
+                  const results = await dispatch(
+                    spotifyClientInfo(localStorageSpotifyToken)
+                  );
+                  console.log(setToken, "SETTING_SPOTIFY_TOKEN");
+                  console.log(results, "SPOTIFT_CLIENT_INFO");
+                }}
+              >
+                test
+              </button>
+            </>
+          ) : (
+            <>
+              {" "}
+              <button
+                onClick={async () => {
+                  const setToken = await dispatch(
+                    setSpotifyTokens({
+                      payload: localStorageSpotifyToken,
+                      type: "SPOTIFY_TOKENS",
+                    })
+                  );
 
-              console.log(setToken, "SETTING_SPOTIFY_TOKEN");
-              console.log(results, "SPOTIFT_CLIENT_INFO");
-            }}
-          >
-            test
-          </button>
-          <Router>
-            <Link to="top-tracks">top-tracks</Link>
-            <Link to="top-artists">top-artists</Link>
-            <Link to="/">Home</Link>
-            <Routes>
-              <Route element={<SideBar />} path="/">
+                  const results = await dispatch(
+                    spotifyClientInfo(localStorageSpotifyToken)
+                  );
+
+                  console.log(setToken, "SETTING_SPOTIFY_TOKEN");
+                  console.log(results, "SPOTIFT_CLIENT_INFO");
+                }}
+              >
+                test
+              </button>
+              <Link to="top-tracks">top-tracks</Link>
+              <Link to="top-artists">top-artists</Link>
+              <Link to="/">Home</Link>
+              <Routes>
                 <Route
                   element={<TopArtists />}
                   path="/top-artists"
                 ></Route>
                 <Route element={<TopTracks />} path="/top-tracks"></Route>
                 <Route
-                  element={<PlayList />}
+                  element={
+                    <PlayList
+                      idOfPlaylist={idOfPlaylist}
+                      setIdOfPlaylist={setIdOfPlaylist}
+                    />
+                  }
                   path="/playlists/:id"
                 ></Route>
                 <Route element={<PlayList />} path="/playlists"></Route>
@@ -133,12 +166,12 @@ function App() {
                   }
                   path="/"
                 ></Route>
-              </Route>
-            </Routes>
-          </Router>
-        </>
-      )}
-    </div>
+              </Routes>
+            </>
+          )}
+        </div>
+      </div>
+    </Router>
   );
 }
 

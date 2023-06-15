@@ -11,7 +11,7 @@ const StyledSectionTopArtists = styled.section`
     width: 100%;
     max-width: var(--site-max-width);
     margin: 0 auto;
-    display: flex;
+
     flex-flow: row wrap;
     flex-direction: row;
     padding: var(--spacing-lg) var(--spacing-md);

@@ -25,18 +25,34 @@ margin-left: 8%;
 
 }
 
-.test{
+/* .test{
   display: flex;
   justify-content: space-between;
   margin-left: 20px;
-}
+} */
 
-.sidebar{
-  display: flex;;
-  flex: 1 auto;
-  height:100%;
-  width:15%;
-  background-color: grey;
+
+
+
+.side-outer-child{
+  border: solid 1px black;
+  
+  
+  width: 30px;
+
+  background-color: black;
+  margin-top: .5%;
+  margin-right: .5%;
+
+  border-radius: 5px;
+}
+.side-outer-child-items{
+  margin: 20%;
+  margin-top: 25%;
+  
+}
+.side-outer-child-items:hover{
+  opacity: .5;
 }
 .sidebar_child{
   flex: 1 auto;
@@ -49,7 +65,180 @@ margin-left: 8%;
   
   
 }
-/* .range-btn-parent{
+.parent_main{
   display: flex;
-  margin-right: 40%;
-} */
+}
+
+.parent_child{
+  width:75%;
+}
+
+
+.sidebar{
+  min-height:100vh;
+  width:25%;
+  background-color: black;
+  opacity: .8;
+  margin-top: .5%;
+  margin-left: .5%;
+  margin-bottom: .5;
+  border-radius: 5px;
+}
+.sidebar-home{
+display: flex;
+margin-top: 15%;
+
+
+}
+.sidebar-home-logo{
+opacity: .3;
+}
+
+.sidebar-home-logo:hover{
+  opacity: .7;
+  }
+.sidebar-input-parent{
+  display: flex;
+  flex-basis: 120px;
+  
+}
+.sidebar-input-child{
+  display: flex;
+ 
+}
+#sidebar-input{
+  border-radius: 10%;
+ opacity: .9;
+}
+
+
+@media only screen and (max-width:673px) and (min-width:300px) {
+  .sidebar-home-logo:hover{
+    opacity: .7;
+    }
+  .sidebar-input-child{
+    display: flex;
+    flex-basis: 120px;
+    margin-left: 2%;
+    border-radius: 15%;
+    
+  }
+
+  #sidebar-input{
+    border-radius: 10%;
+    opacity: .9;
+    width:90px;
+  }
+
+  .sidebar-home{
+    display: flex;
+    margin-top: 15%;
+ 
+    }
+    .sidebar-home-logo{
+    opacity: .3;
+    
+    }
+    .playlist-sidebar-names{
+    
+    }
+    .playlist-sidebar-images:hover{
+      height:100%;
+      width:100%;
+  
+    
+    }
+    .playlist-sidebar-content-children{
+      margin: 15%;
+      margin-left:15%;
+     
+     
+    }
+
+}
+.sidebar-playlist-main{
+  margin-top: 15%;
+}
+
+.playlist-sidebar-content-parent{
+display: flex;
+}
+
+.playlist-sidebar-content{
+display: flex;
+}
+
+.playlist-sidebar-images{
+  height: 50px;
+  width:50px;
+  border-radius: 25%;
+  margin: 5%;
+}
+
+.sidebar-add-playlist-logo{
+  margin-left: 99%;
+  margin-top: 15%;
+  margin-bottom: 10%;
+  
+  }
+.sidebar-playlist-logo h2:hover{
+  color:green
+}
+
+.sidebar-playlist-buttons{
+display: flex;
+text-align: center;
+}
+.create-playlist-buttons{
+  display: flex;
+  flex-direction: column;
+}
+.sidebar-playlist-buttons-all-playlist p{
+  color: green;
+}
+.sidebar-playlist-buttons-all-playlist p:hover{
+  color: white;
+}
+.sidebar-playlist-buttons-all-playlist:hover{
+  opacity: .5;
+}
+.sidebar-playlist-buttons-by-you p{
+color:green
+
+}
+.sidebar-playlist-buttons-by-spotify p{
+  color:green
+  }
+.sidebar-playlist-buttons-by-you:hover{
+
+opacity: .5;
+
+}
+.sidebar-playlist-buttons-by-you p:hover{
+color:white;
+
+
+}
+.sidebar-playlist-buttons-by-spotify:hover{
+  opacity: .5;
+}
+
+.sidebar-playlist-buttons-by-spotify p:hover{
+color: white
+
+}
+
+@media only screen and (min-width:674px) {
+
+  .sidebar{
+    min-height:100vh;
+    width:168px;
+    background-color: black;
+    opacity: .8;
+    margin-top: .5%;
+    margin-left: .5%;
+    margin-bottom: .5;
+    border-radius: 5px;
+  }
+  
+}

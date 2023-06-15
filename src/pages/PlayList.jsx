@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import StyledHeader from "../styles/header";
 import { PlaylistTrackList } from "../components/PlaylistTrackList";
 import { TrackList } from "../components/TrackList";
@@ -9,13 +10,15 @@ import SectionWrapper from "../components/SectionWrapper";
 import { useSelector } from "react-redux";
 import { getSpotifyUserPlaylistById } from "../redux/userSlice";
 import { getSpotifyUserPlaylistNextTracks } from "../redux/userSlice";
-export const PlayList = () => {
+export const PlayList = ({ idOfPlaylist, setIdOfPlaylist }) => {
   const [UserPlaylistDataById, setUserPlaylistDataById] = useState(false);
   var token = useSelector((state) => state.users.spotifyToken);
   var tracks = useSelector((state) => state.users.spotifyUserPlaylistById);
   var headToken = localStorage.getItem("spotify_access_token");
   const dispatch = useDispatch();
   const { id } = useParams();
+
+  const nav = useNavigate();
   const playlistHeaderData = useSelector(
     (state) => state.users.spotifyUserPlaylistByIdHeaderData
   );
@@ -48,6 +51,12 @@ export const PlayList = () => {
     };
     getUserPlaylistDataById();
   }, []);
+
+  useEffect(() => {
+    nav(`playlists/${idOfPlaylist}`);
+
+    const copy = id;
+  }, [idOfPlaylist]);
 
   return (
     <>
