@@ -10,18 +10,7 @@ const SectionWrapper = ({ children, title, seeAllLink, breadcrumb }) => {
           <div className="section__top">
             <h2 className="section__heading">
               {breadcrumb && (
-                <span className="section__breadcrumb">
-                  <Link to="/">Profile</Link>
-                </span>
-              )}
-              {title && (
-                <>
-                  {seeAllLink ? (
-                    <Link to={seeAllLink}>{title}</Link>
-                  ) : (
-                    <span>{title}</span>
-                  )}
-                </>
+                <span className="section__breadcrumb">Profile</span>
               )}
             </h2>
             {seeAllLink && (

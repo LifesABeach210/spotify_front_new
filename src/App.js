@@ -1,6 +1,6 @@
 import "./App.css";
 import React, { useEffect, useState } from "react";
-
+import { SearchForMusic } from "./pages/SearchForMusic";
 import { useSelector } from "react-redux";
 import {
   BrowserRouter as Router,
@@ -22,7 +22,8 @@ import { TopTracks } from "./pages/TopTracks";
 import { PlayList } from "./pages/PlayList";
 import { SideBar } from "./components/SideBar";
 import { HambugerMenu } from "./react-icons/HambugerMenu";
-
+import { ArtistPage } from "./pages/ArtistPage";
+import { AlbumsPage } from "./pages/AlbumsPage";
 function ScrollToTop() {
   const { pathname } = useLocation();
 
@@ -36,9 +37,9 @@ function ScrollToTop() {
 function App() {
   //------------------STATES-------------------------------------------------------
   const [sideBarStatus, setSideBarStatus] = useState(true);
-  const [displayCreatePlaylist, setDisplayCreatePlaylist] =
-    useState(false);
+  const [displayCreatePlaylist, setDisplayCreatePlaylist] = useState(false);
   const [idOfPlaylist, setIdOfPlaylist] = useState("");
+  const [idOfPlaylistCopy, setIdOfPlaylistCopy] = useState("");
   const profile = useSelector((state) => state.users.spotifyProfileData);
   const topArtist = useSelector(
     (state) => state.users.spotifyTopArtistData
@@ -64,6 +65,8 @@ function App() {
           <SideBar
             idOfPlaylist={idOfPlaylist}
             setIdOfPlaylist={setIdOfPlaylist}
+            idOfPlaylistCopy={idOfPlaylistCopy}
+            setIdOfPlaylistCopy={setIdOfPlaylistCopy}
             playlist={playlist}
             displayCreatePlaylist={displayCreatePlaylist}
             setDisplayCreatePlaylist={setDisplayCreatePlaylist}
@@ -106,8 +109,6 @@ function App() {
                   const results = await dispatch(
                     spotifyClientInfo(localStorageSpotifyToken)
                   );
-                  console.log(setToken, "SETTING_SPOTIFY_TOKEN");
-                  console.log(results, "SPOTIFT_CLIENT_INFO");
                 }}
               >
                 test
@@ -128,9 +129,6 @@ function App() {
                   const results = await dispatch(
                     spotifyClientInfo(localStorageSpotifyToken)
                   );
-
-                  console.log(setToken, "SETTING_SPOTIFY_TOKEN");
-                  console.log(results, "SPOTIFT_CLIENT_INFO");
                 }}
               >
                 test
@@ -139,6 +137,11 @@ function App() {
               <Link to="top-artists">top-artists</Link>
               <Link to="/">Home</Link>
               <Routes>
+                <Route
+                  path="/artist/:id/albums/:album_id"
+                  element={<AlbumsPage />}
+                ></Route>
+                <Route path="/artist/:id" element={<ArtistPage />}></Route>
                 <Route
                   element={<TopArtists />}
                   path="/top-artists"
@@ -166,6 +169,7 @@ function App() {
                   }
                   path="/"
                 ></Route>
+                <Route element={<SearchForMusic />} path="/search"></Route>
               </Routes>
             </>
           )}

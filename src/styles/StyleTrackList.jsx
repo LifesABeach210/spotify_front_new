@@ -70,7 +70,7 @@ const StyledTrackList = styled.ul`
 
     @media (min-width: 768px) {
       display: flex;
-      justify-content: flex-end;
+
       font-variant-numeric: tabular-nums;
     }
   }

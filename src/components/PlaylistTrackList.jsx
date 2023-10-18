@@ -7,16 +7,9 @@ export const PlaylistTrackList = ({ tracks }) => {
 
   return (
     <>
-      {console.log(tracks, "TRACKLIST")}
       {tracks && tracks.length ? (
         <StyledTrackList>
-          <>
-            <div className="test">
-              <p>#</p>
-              <p>Album Name</p>
-              <p>Duration</p>
-            </div>
-          </>
+          <></>
           {tracks.map((_, i) => (
             <li className="track__item" key={i}>
               <div className="track__item__num">{i + 1}</div>

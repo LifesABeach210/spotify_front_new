@@ -1,4 +1,5 @@
 import styled from "styled-components/macro";
+//removed width:100vw from first style
 const StyledHeader = styled.header`
   display: flex;
   align-items: flex-end;
@@ -35,6 +36,32 @@ const StyledHeader = styled.header`
 
     @media (min-width: 768px) {
       padding: var(--spacing-xl) var(--spacing-xxl);
+    }
+  }
+
+  .header__inner_artist {
+    display: flex;
+    align-items: flex-end;
+    width: 100%;
+    max-width: var(--site-max-width);
+    margin: 0 auto;
+    padding: var(--spacing-lg) var(--spacing-md);
+
+    @media (min-width: 768px) {
+      padding: var(--spacing-xl) var(--spacing-xxl);
+    }
+  }
+
+  img.header__img_artist {
+    width: 100%;
+    max-width: 250px;
+    min-width: 120px;
+    margin-right: var(--spacing-lg);
+    box-shadow: 0 4px 60px rgb(0 0 0 / 50%);
+    background-color: var(--dark-grey);
+    border-radius: 50%;
+    @media (min-width: 768px) {
+      margin-right: var(--spacing-xl);
     }
   }
 

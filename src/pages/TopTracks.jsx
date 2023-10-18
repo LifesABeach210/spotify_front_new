@@ -5,8 +5,6 @@ import { TimeRangeButtonsForTracks } from "../components/TimeRangeButtonsForTrac
 import { TrackList } from "../components/TrackList";
 import { useSelector } from "react-redux";
 export const TopTracks = () => {
-  const dispatch = useDispatch();
-  const token = useSelector((state) => state.users.spotifyToken);
   const topTracks = useSelector(
     (state) => state.users.spotifyTopTracksData
   );

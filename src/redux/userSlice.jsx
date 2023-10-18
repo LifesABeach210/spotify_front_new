@@ -9,10 +9,29 @@ export const registerUser = createAsyncThunk(
   "users/createUser",
   async (userData) => {
     let response = await Axios.post("/users/registerUser", userData);
-    console.log(response, "REGISTER_USER_RESPONSE");
+
     return response;
   }
 );
+
+export const getSpotifySearchByGenre = createAsyncThunk(
+  "spotify/search/by/genre",
+  async ({ payload }) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_SPOTIFY_BASE_SEARCH_URL_GENRE}${payload.genre}&type=artist&type=track`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      }
+    );
+    let responseJSON = await response.json();
+
+    return responseJSON;
+  }
+);
+
 export const getSpotifyUserPlaylistNextTracks = createAsyncThunk(
   "spotify/get/user/playlist/tracks",
   async ({ payload }) => {
@@ -23,7 +42,7 @@ export const getSpotifyUserPlaylistNextTracks = createAsyncThunk(
       },
     });
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_User_PLAYLIST");
+
     return responseJSON;
   }
 );
@@ -40,7 +59,7 @@ export const getSpotifyUserPlaylistById = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_User_PLAYLIST");
+
     return responseJSON;
   }
 );
@@ -57,7 +76,7 @@ export const getSpotifyTopTracksShort = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_TOP_TRACKS_FETCH");
+
     return responseJSON;
   }
 );
@@ -75,7 +94,7 @@ export const getSpotifyTopTracksMedium = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_TOP_TRACKS_FETCH");
+
     return responseJSON;
   }
 );
@@ -93,7 +112,7 @@ export const getSpotifyTopTracksLong = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_TOP_TRACKS_FETCH");
+
     return responseJSON;
   }
 );
@@ -111,7 +130,96 @@ export const getSpotifyTopArtistShort = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_TOP_ARTIST_FETCH");
+
+    return responseJSON;
+  }
+);
+
+export const getSpotifySingleArtist = createAsyncThunk(
+  "spotify/get/artistsById",
+  async ({ payload }) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_SPOTIFY_BASE_SEARCH_URL_ARTIST}/${payload.id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      }
+    );
+    let responseJSON = await response.json();
+
+    return responseJSON;
+  }
+);
+
+export const getSpotifySingleArtistAlbum = createAsyncThunk(
+  "spotify/get/albumById",
+  async ({ payload }) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_SPOTIFY_BASE_SEARCH_URL_ARTIST_ALBUM}/${payload.id}`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      }
+    );
+    let responseJSON = await response.json();
+
+    return responseJSON;
+  }
+);
+
+export const getSpotifySingleRelatedArtist = createAsyncThunk(
+  "spotify/get/artistsById/relatedArtists",
+  async ({ payload }) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_SPOTIFY_BASE_SEARCH_URL_ARTIST}/${payload.id}/related-artists`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      }
+    );
+    let responseJSON = await response.json();
+
+    return responseJSON;
+  }
+);
+export const getSpotifySingleArtistAlbums = createAsyncThunk(
+  "spotify/get/artistsById/Artists/albums",
+  async ({ payload }) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_SPOTIFY_BASE_SEARCH_URL_ARTIST}/${payload.id}/albums`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      }
+    );
+    let responseJSON = await response.json();
+
+    return responseJSON;
+  }
+);
+
+export const getSpotifySingleArtistTopTracks = createAsyncThunk(
+  "spotify/get/artistsById/Artists/top-tracks",
+  async ({ payload }) => {
+    let response = await fetch(
+      `${process.env.REACT_APP_SPOTIFY_BASE_SEARCH_URL_ARTIST}/${payload.id}/top-tracks?market=US`,
+      {
+        method: "GET",
+        headers: {
+          Authorization: `Bearer ${payload.token}`,
+        },
+      }
+    );
+    let responseJSON = await response.json();
+
     return responseJSON;
   }
 );
@@ -128,7 +236,7 @@ export const getSpotifyTopArtistMedium = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_TOP_ARTIST_FETCH");
+
     return responseJSON;
   }
 );
@@ -145,7 +253,7 @@ export const getSpotifyTopArtistLong = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "GET_TOP_ARTIST_FETCH");
+
     return responseJSON;
   }
 );
@@ -153,7 +261,7 @@ export const loginUser = createAsyncThunk(
   "users/login",
   async (loginData) => {
     let response = await Axios.post("users/login", loginData);
-    console.log("LOGIN_USER_RESPONSE", response);
+
     return response;
   }
 );
@@ -171,7 +279,6 @@ export const spotifyClientInfo = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON);
 
     return responseJSON;
   }
@@ -189,7 +296,6 @@ export const spotifyPlaylistInfo = createAsyncThunk(
       }
     );
     let responseJSON = await response.json();
-    console.log(responseJSON, "PLAYLIST_INTO");
 
     return responseJSON;
   }
@@ -204,10 +310,17 @@ export const userSlice = createSlice({
     spotifyToken: "",
     spotifyProfileData: [],
     spotifyTopArtistData: [],
+    spotifySingleArtistData: [],
+    spotifySingleArtistTracksData: [],
+    spotifySingleArtistAlbumsData: [],
+    spotifySingleArtistAlbumData: [],
+    spotifySingleArtistAlbumTracks: [],
+    spotifySingleRelatedArtistData: [],
     spotifyTopTracksData: [],
     spotifyTopPlaylistData: [],
     spotifyUserPlaylistById: [],
     spotifyUserPlaylistByIdHeader: [],
+    spotifySearchByGenre: [],
   },
   reducers: {
     setSpotifyTokens: (state, action) => {
@@ -306,6 +419,45 @@ export const userSlice = createSlice({
         state.spotifyTopTracksData = tracks;
       }
     );
+    builder.addCase(getSpotifySingleArtist.fulfilled, (state, action) => {
+      console.log(state, "BUILDER_STATE");
+      console.log(action, "BUILDER_ACTION");
+      state.spotifySingleArtistData = action.payload;
+    });
+    builder.addCase(
+      getSpotifySingleArtistTopTracks.fulfilled,
+      (state, action) => {
+        console.log(state, "BUILDER_STATE");
+        console.log(action, "BUILDER_ACTION");
+        state.spotifySingleArtistTracksData = action.payload.tracks;
+      }
+    );
+    builder.addCase(
+      getSpotifySingleRelatedArtist.fulfilled,
+      (state, action) => {
+        console.log(state, "BUILDER_STATE");
+        console.log(action, "BUILDER_ACTION");
+        state.spotifySingleRelatedArtistData = action.payload.artists;
+      }
+    );
+    builder.addCase(
+      getSpotifySingleArtistAlbums.fulfilled,
+      (state, action) => {
+        console.log(state, "BUILDER_STATE");
+        console.log(action, "BUILDER_ACTION");
+        state.spotifySingleArtistAlbumsData = action.payload.items;
+      }
+    );
+    builder.addCase(
+      getSpotifySingleArtistAlbum.fulfilled,
+      (state, action) => {
+        console.log(state, "BUILDER_STATE");
+        console.log(action, "BUILDER_ACTION");
+        state.spotifySingleArtistAlbumData = action.payload;
+        state.spotifySingleArtistAlbumTracks = action.payload.tracks.items;
+      }
+    );
+
     builder.addCase(
       getSpotifyTopTracksMedium.fulfilled,
       (state, action) => {
@@ -326,6 +478,11 @@ export const userSlice = createSlice({
     builder.addCase(spotifyPlaylistInfo.fulfilled, (state, action) => {
       console.log(action, "PLAYIST_ACTION");
       state.spotifyTopPlaylistData = action.payload.items;
+    });
+
+    builder.addCase(getSpotifySearchByGenre.fulfilled, (state, action) => {
+      console.log(action, "PLAYIST_ACTION");
+      state.spotifySearchByGenre = action.payload.artists.items;
     });
   },
 });

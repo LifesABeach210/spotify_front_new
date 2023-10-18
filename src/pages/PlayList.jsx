@@ -2,27 +2,28 @@ import React, { useState } from "react";
 import { useParams } from "react-router-dom";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
+
 import StyledHeader from "../styles/header";
 import { PlaylistTrackList } from "../components/PlaylistTrackList";
-import { TrackList } from "../components/TrackList";
+
 import SectionWrapper from "../components/SectionWrapper";
 import { useSelector } from "react-redux";
 import { getSpotifyUserPlaylistById } from "../redux/userSlice";
-import { getSpotifyUserPlaylistNextTracks } from "../redux/userSlice";
+
 export const PlayList = ({ idOfPlaylist, setIdOfPlaylist }) => {
   const [UserPlaylistDataById, setUserPlaylistDataById] = useState(false);
+  const [playListId, setPlayListId] = useState(idOfPlaylist);
   var token = useSelector((state) => state.users.spotifyToken);
   var tracks = useSelector((state) => state.users.spotifyUserPlaylistById);
   var headToken = localStorage.getItem("spotify_access_token");
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const nav = useNavigate();
   const playlistHeaderData = useSelector(
     (state) => state.users.spotifyUserPlaylistByIdHeaderData
   );
   useEffect(() => {
+    console.log("useeffect", idOfPlaylist, setIdOfPlaylist);
     const getUserPlaylistDataById = async () => {
       if (headToken !== token) {
         token = headToken;
@@ -33,7 +34,6 @@ export const PlayList = ({ idOfPlaylist, setIdOfPlaylist }) => {
       if (response.type === "spotify/get/user/playlist/fulfilled") {
         setUserPlaylistDataById(true);
       }
-      console.log(response, "PLAYLIST_RESPONSE");
 
       // if (response.payload.tracks.next !== null) {
       //   const getSpotifyUserNextTracks = async () => {
@@ -50,12 +50,6 @@ export const PlayList = ({ idOfPlaylist, setIdOfPlaylist }) => {
       // }
     };
     getUserPlaylistDataById();
-  }, []);
-
-  useEffect(() => {
-    nav(`playlists/${idOfPlaylist}`);
-
-    const copy = id;
   }, [idOfPlaylist]);
 
   return (

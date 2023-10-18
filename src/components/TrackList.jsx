@@ -4,7 +4,6 @@ import React from "react";
 
 export const TrackList = ({ tracks }) => (
   <div className="track_list_parent">
-    {console.log(tracks, "TRACKLIST")}
     {tracks && tracks.length ? (
       <StyledTrackList>
         {tracks.map((track, i) => (

@@ -22,7 +22,7 @@ export const Profile = () => {
   useEffect(() => {
     let getTopArtistDataShort = async () => {
       let response = await dispatch(getSpotifyTopArtistShort(token));
-      console.log(response, "IN_LOOP_RESPONSE Artists");
+
       if (response.type === "spotify/get/artists/fulfilled") {
         setTopArtistsResponse(true);
       }
@@ -30,7 +30,7 @@ export const Profile = () => {
 
     let getTopTracksDataShort = async () => {
       let response = await dispatch(getSpotifyTopTracksShort(token));
-      console.log(response, "IN_LOOP_RESPONSE");
+
       if (response.type === "spotify/get/tracks/fulfilled") {
         setTopTracksResponse(true);
       }
@@ -38,14 +38,14 @@ export const Profile = () => {
 
     let getPlaylistData = async () => {
       let response = await dispatch(spotifyPlaylistInfo(token));
-      console.log(response, "IN_LOOP_PLAYLIST_RESPONSE");
     };
+    if (!tracks.length) {
+      getPlaylistData();
 
-    getPlaylistData();
+      getTopTracksDataShort();
 
-    getTopTracksDataShort();
-
-    getTopArtistDataShort();
+      getTopArtistDataShort();
+    }
   }, []);
 
   return (
@@ -67,13 +67,12 @@ export const Profile = () => {
           </div>
         </div>
       </StyledHeader>
-      {topArtistsResponse === true && topTracksResponse === true && (
+      {tracks && tracks.length > 1 && (
         <main>
           <StyledSectionTopArtists
             seeAllLink="/top-artists"
             title="Top Artist This Month"
           >
-            {" "}
             <ArtistsGrid artists={artist.slice(0, 10)}></ArtistsGrid>
           </StyledSectionTopArtists>
           <SectionWrapper seeAllLink="/top-tracks">

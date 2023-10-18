@@ -12,19 +12,63 @@ border-radius: 7%;
 .profilePic{
   border-radius: 300px;
 }
+.icon-button{
+  font-size: large;
+  color: white;
+  background-color: white;
+  
+}
 
 .backgroundHeader{
   width: 100vw;
   border: solid rebeccapurple 3px;
   background-color: #383449
 }
-
+.album-header{
+  font-weight: 700;
+  margin: 2rem;
+}
 .profile{
 min-width: 20%;
 margin-left: 8%;
 
 }
+.artist-page-sidebar-container{
+  display: flex;
+  margin-left: 300px;
+}
 
+.artist-page-sidebar-icon{
+display: flex;
+  font-size: 30px;
+}
+.artist-album-container{
+  margin-top: 4rem;
+  margin-left: 2rem;
+}
+.artist-page-sidebar-icon:hover{
+ opacity: .1;
+}
+.artist-page-sidebar-icon-content{
+ 
+  display: none;
+  margin-left: .5rem;
+  border: solid #6b5f5f19 ;
+  background-color: #6b5f5f19;
+  border-radius: 5%;
+  font-size: medium;
+  overflow: auto;
+}
+.artist-page-sidebar-icon-content-open{
+ 
+  height: auto;
+  margin-left: .5rem;
+  border: solid #6b5f5f19 ;
+  background-color: #6b5f5f19;
+  border-radius: 5%;
+  font-size: medium;
+  overflow: auto;
+}
 /* .test{
   display: flex;
   justify-content: space-between;
@@ -32,7 +76,18 @@ margin-left: 8%;
 } */
 
 
+.fa-playbutton-artist{
+  height: 35px;
+  width: 20px;
+  background-color: green;
+  border-radius: 50%;
+  display: flex;
+}
+.fa-playbutton-artist-inner{
+margin: 10%;
+margin-top: 40%;
 
+}
 
 .side-outer-child{
   border: solid 1px black;
@@ -40,7 +95,7 @@ margin-left: 8%;
   
   width: 30px;
 
-  background-color: black;
+  background-color: red;
   margin-top: .5%;
   margin-right: .5%;
 
@@ -76,6 +131,7 @@ margin-left: 8%;
 
 .sidebar{
   min-height:100vh;
+ 
   width:25%;
   background-color: black;
   opacity: .8;
@@ -140,11 +196,21 @@ opacity: .3;
     
     }
     .playlist-sidebar-names{
-    
+      overflow: overlay;
     }
+    .playlist-sidebar-images{
+      margin-top: 10%;
+      height: 50px;
+      width:50px;
+      border-radius: 25%;
+ 
+      
+    }
+    
     .playlist-sidebar-images:hover{
       height:100%;
       width:100%;
+      overflow: auto;
   
     
     }
@@ -162,19 +228,32 @@ opacity: .3;
 
 .playlist-sidebar-content-parent{
 display: flex;
+
 }
 
+.playlist_page_columns{
+  display: flex;
+  justify-content: space-between;
+  
+}
 .playlist-sidebar-content{
-display: flex;
+margin-top: 5%;
 }
 
 .playlist-sidebar-images{
   height: 50px;
   width:50px;
   border-radius: 25%;
-  margin: 5%;
+  margin: 10%;
+  
 }
-
+.sidebar-icon{
+  font-size: 30px;
+  margin-top: 10px;
+}
+.sidebar-icon:hover{
+  opacity: .5;
+}
 .sidebar-add-playlist-logo{
   margin-left: 99%;
   margin-top: 15%;
@@ -227,13 +306,56 @@ color:white;
 color: white
 
 }
+.circle {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-bottom: 50px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: green;
+  display: grid;
 
+  place-content: center;
+  animation: grow 1s infinite;
+}
+
+.circle:hover {
+  margin-top: 50px;
+  margin-left: 50px;
+  margin-bottom: 50px;
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+  background-color: green;
+  display: grid;
+
+  place-content: center;
+  animation: grow .1s infinite;
+}
+.material-icons {
+  color: black;
+  display: flex;
+  position: relative;
+  font-size: 30px;
+  margin-left: 10%;
+  margin-top: 15%;;
+}
+
+@keyframes grow {
+  from {
+    box-shadow: 0px 0px 1em green;
+  }
+  to {
+    box-shadow: 0px 0px 3em green;
+  }
+}
 @media only screen and (min-width:674px) {
 
   .sidebar{
     min-height:100vh;
     width:168px;
-    background-color: black;
+    background-color: red;
     opacity: .8;
     margin-top: .5%;
     margin-left: .5%;
@@ -242,3 +364,87 @@ color: white
   }
   
 }
+
+
+
+  
+.search_for_music_h2{
+  margin-left: 20px;
+  margin-top: 15px;
+}
+  
+  .search__input {
+      width: 60%;
+      padding: 12px 24px;
+      margin-left: 10px;
+      margin-top: 10px;
+      background-color: transparent;
+      transition: transform 250ms ease-in-out;
+      font-size: 14px;
+      line-height: 18px;
+      
+      color: #575756;
+      background-color: transparent;
+/*         background-image: url(http://mihaeltomic.com/codepen/input-search/ic_search_black_24px.svg); */
+
+    
+      background-repeat: no-repeat;
+      background-size: 18px 18px;
+      background-position: 95% center;
+      border-radius: 50px;
+      border: 1px solid #575756;
+      transition: all 250ms ease-in-out;
+      backface-visibility: hidden;
+      transform-style: preserve-3d;
+  }
+      .search__input:placeholder {
+          color: color(#575756 a(0.8));
+          text-transform: uppercase;
+          letter-spacing: 1.5px;
+      }
+      
+      .search__input:hover,
+      :focus {
+          padding: 12px 0;
+          outline: 0;
+          border: 1px solid transparent;
+          border-bottom: 1px solid #575756;
+          border-radius: 0;
+          background-position: 100% center;
+      }
+      .search_for_music_by_genre {
+       
+        margin-top: 20px;
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+      }
+
+      .search_for_music_by_genre div {
+        height: 150px;
+        border-radius: 10%;
+        width: 30%;
+        
+        border: solid black 1px;
+        text-align: center;
+        padding: 10px;
+        margin: 10px;
+        flex-shrink: 3;
+        background-repeat:repeat;
+        
+      }
+      .search_for_music_by_genre div:hover {
+      text-decoration-color: darkmagenta;
+      opacity: .5;
+        
+      }
+
+      .search_for_music_by_genre h1{
+        overflow: hidden;
+        color:rgb(101, 22, 8);
+        font-size: large;
+        font-weight: 900;
+        font-style: oblique;
+  font-variant-caps: all-small-caps;
+        font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      }
